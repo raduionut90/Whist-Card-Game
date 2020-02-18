@@ -20,7 +20,7 @@ public class Distribuire {
     private int nrMaini;
     private List<Hand> colectieMaini = new ArrayList<>();
     private Map<Jucator, Integer> mapVotate = new HashMap<>();
-   // private int votatePanaAcum;
+    private int votatePanaAcum;
     private Carte atuu;
 
     public Distribuire(int id, int nrMaini) {
@@ -29,16 +29,15 @@ public class Distribuire {
     }
 
     public void voteaza(Jucator jucator) {
-        System.out.println(jucator.getNume() + " cate maini crezi ca faci ? Pana acum s-au votat " + cateVotate());
-        mapVotate.put(jucator, jucator.cateVotezi(nrMaini, cateVotate()));
-
-
+        cateVotate();
+        System.out.println(jucator.getNume() + " cate maini crezi ca faci ? Pana acum s-au votat " + votatePanaAcum);
+        mapVotate.put(jucator, jucator.cateVotezi(nrMaini, votatePanaAcum));
+        cateVotate();
     }
 
     public int cateVotate(){
-        int votatePanaAcum=0;
-        for (int i = 0; i < mapVotate.size()-1; i++) {
-             votatePanaAcum = +mapVotate.get(i);
+        for (int i = 0; i < mapVotate.size(); i++) {
+             votatePanaAcum =+ mapVotate.get(i);
         }
         return votatePanaAcum;
     }
@@ -51,17 +50,18 @@ public class Distribuire {
         //TODO: nu folosi x,y,a,b,c... pentru variabile. Aici, foloseste Jucator jucator : colectieJucatori
         //TODO: din cauza ca ai folosit hm, nu e clar peste ce iterezi aici
         //TODO: mai bine faci un setter care suprascrie array-ul decat sa faci clear si add
-        ArrayList<Carte> cartiTemp = new ArrayList<>(colectieCarti);
-        for (int j = 0; j < nrMaini; j++) {
-            int count = 0;
+        Collections.shuffle(colectieCarti);
+        for (int i = 0; i < nrMaini; i++) {
             jucator.cartiCurente.clear();
-            jucator.cartiCurente.add(cartiTemp.get(count));
+            jucator.cartiCurente.add(colectieCarti.get(i));
             System.out.println("Jucatorul " + jucator.getNume() + " a primit cartea " + jucator.getCartiCurente().toString());
-            count++;
+            colectieCarti.remove(i);
         }
 
-        atuu = cartiTemp.get(nrMaini+1);
-        System.out.println(atuu+ " este ATU");
+        if (nrMaini!=8) {
+            atuu = colectieCarti.get(nrMaini);
+            System.out.println(atuu + " este ATU");
+        }
         //TODO: e riscant sa faci get, remove... cu un field care se tot modifica.
         //incrementeaza asta in afara metodei, care ar trebui doar sa distribuie carti
         //manaCurenta++;
