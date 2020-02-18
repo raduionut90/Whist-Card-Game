@@ -1,5 +1,5 @@
 
-package whist;
+package com.whist;
 
 public class Carti {
     private final int valoare;

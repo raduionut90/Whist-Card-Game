@@ -1,5 +1,5 @@
 
-package whist;
+package com.whist;
 
 //clasa care se ocupa de distribuirea cartilor in functie de mana curenta si cartile avute la dispozitie
 

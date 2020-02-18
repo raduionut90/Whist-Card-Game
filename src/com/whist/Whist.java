@@ -1,5 +1,5 @@
 
-package whist;
+package com.whist;
 
 import java.util.ArrayList;
 import java.util.Collections;
