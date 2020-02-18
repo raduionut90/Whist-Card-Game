@@ -3,6 +3,7 @@ package com.whist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class Jucator {
@@ -10,6 +11,7 @@ public class Jucator {
     private final String nume;
     private int puncteCastigate;
     private boolean first = false;
+    private boolean last = false;
     //TODO: foloseste mereu private sau protected
     protected List<Carte> cartiCurente = new ArrayList<>();
 
@@ -19,10 +21,21 @@ public class Jucator {
         //TODO: e deja initializat cu 0 (default value)
         //puncteCastigate = 0;
     }
-    
-    public Carte alegeCarte(int x){
-        return cartiCurente.get(x);
+
+    public int cateVotezi(int nrMaini, int votatePanaAcum){
+        Scanner sc = new Scanner(System.in);
+        int rezultat = sc.nextInt();
+        if (isLast() && rezultat==nrMaini-votatePanaAcum){
+            System.out.println("Nu poti vota " + rezultat + ". Pana acum s-au votat " + votatePanaAcum);
+
+        }
+        return rezultat;
+
     }
+    
+//    public Carte alegeCarte(int x){
+//        return cartiCurente.get(x);
+//    }
 
     public void preiaCarti(Carte x){
         cartiCurente.add(x);
@@ -62,8 +75,11 @@ public class Jucator {
         this.first = first;
     }
 
+    public boolean isLast() {
+        return last;
+    }
 
-    
-    
-    
+    public void setLast(boolean last) {
+        this.last = last;
+    }
 }

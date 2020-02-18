@@ -1,8 +1,6 @@
 package com.whist;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Distribuire {
 //            nr. distrib. 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
@@ -20,62 +18,57 @@ public class Distribuire {
 
     private int id;
     private int nrMaini;
-    private List<Carte> colectieCarti;
     private List<Hand> colectieMaini = new ArrayList<>();
+    private Map<Jucator, Integer> mapVotate = new HashMap<>();
+   // private int votatePanaAcum;
     private Carte atuu;
 
     public Distribuire(int id, int nrMaini) {
         this.id = id;
         this.nrMaini = nrMaini;
-        this.colectieCarti = genereazaCarti();
-        distribuieCarti(colectieCarti);
-        genereazaMaini();
     }
 
-    //TODO: returneaza colectia de carti in loc sa modifici field-ul de clasa si dupa asigneaza-o la field, daca e nevoie
-    //asa poti apela metoda de mai multe ori, daca e nevoie
-    private List<Carte> genereazaCarti(){
-        List<Carte> Carti = new ArrayList<>();
-        if(Game.getColectieJucatori().size()==3){
-            //daca sunt 3 jucatori, genereaza cartile de la 9 la AS
-            for(int i=6; i<12; i++){
-                for(int j=0; j<4; j++){
-                    Carti.add(new Carte(i, j));
-                }
-            }
-            Collections.shuffle(Carti);
+    public void voteaza(Jucator jucator) {
+        System.out.println(jucator.getNume() + " cate maini crezi ca faci ? Pana acum s-au votat " + cateVotate());
+        mapVotate.put(jucator, jucator.cateVotezi(nrMaini, cateVotate()));
+
+
+    }
+
+    public int cateVotate(){
+        int votatePanaAcum=0;
+        for (int i = 0; i < mapVotate.size()-1; i++) {
+             votatePanaAcum = +mapVotate.get(i);
         }
-        return Carti;
+        return votatePanaAcum;
     }
 
     //TODO: e preferabil sa pasezi variabilele pe care le modifici (colCarti, colectieJucatori...) ca argumente
 //decat sa modifici field-urile de clasa. Asa e si mai clar ce vrea sa faca metoda.
 //TODO: indentarea...
 
-    private void distribuieCarti(List<Carte> cartiTemp){
-//        List<Carte> cartiTemp = new ArrayList<>(colectieCarti);
+    protected void distribuieCarti(List<Carte> colectieCarti, Jucator jucator) {
         //TODO: nu folosi x,y,a,b,c... pentru variabile. Aici, foloseste Jucator jucator : colectieJucatori
-        for(Jucator jucator:Game.getColectieJucatori()){
-            //TODO: din cauza ca ai folosit hm, nu e clar peste ce iterezi aici
-            for(int i=0; i<nrMaini; i++){
-                //TODO: mai bine faci un setter care suprascrie array-ul decat sa faci clear si add
-//                jucator.cartiCurente.clear();
-//                jucator.cartiCurente.add(cartiTemp.get(nrMaini));
-
-                jucator.setCartiCurente(cartiTemp);
-                System.out.println("Jucatorul " + jucator.getNume() + " a primit cartea " + cartiTemp.get(nrMaini));
-//                cartiTemp.remove(nrMaini);
-            }
+        //TODO: din cauza ca ai folosit hm, nu e clar peste ce iterezi aici
+        //TODO: mai bine faci un setter care suprascrie array-ul decat sa faci clear si add
+        ArrayList<Carte> cartiTemp = new ArrayList<>(colectieCarti);
+        for (int j = 0; j < nrMaini; j++) {
+            int count = 0;
+            jucator.cartiCurente.clear();
+            jucator.cartiCurente.add(cartiTemp.get(count));
+            System.out.println("Jucatorul " + jucator.getNume() + " a primit cartea " + jucator.getCartiCurente().toString());
+            count++;
         }
-//        atuu = cartiTemp.get(nrMaini+1);
-//        System.out.println(atuu+ " este ATUU");
+
+        atuu = cartiTemp.get(nrMaini+1);
+        System.out.println(atuu+ " este ATU");
         //TODO: e riscant sa faci get, remove... cu un field care se tot modifica.
         //incrementeaza asta in afara metodei, care ar trebui doar sa distribuie carti
         //manaCurenta++;
     }
 
-    private void genereazaMaini(){
-        for(int i=0; i<nrMaini; i++){
+    protected void genereazaMaini() {
+        for (int i = 0; i <= nrMaini; i++) {
             colectieMaini.add(new Hand());
         }
     }

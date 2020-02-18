@@ -17,19 +17,18 @@ public class Game {
     }
     private final enumNrJuc numarJucatori;
     private final int[] distribuiri;
-    private static int manaCurenta=1;
+    private int manaCurenta=1;
     //TODO: lipseste private
     //TODO: initializeaza mereu cu interfata: ex: List<Jucator> = new ArrayList<>(); Map<Integer, Integer> hm = new HashMap<>();
-    private static final List<Jucator> colectieJucatori = new ArrayList<>();
+    private final List<Jucator> colectieJucatori = new ArrayList<>();
     private final List<Distribuire> colectieDistribuiri = new ArrayList<>();
+    private List<Carte> colectieCarti = new ArrayList<>();
     //TODO: da un nume mai sugestiv pentru asta
   //  HashMap<Integer, Integer> hm = new HashMap<>();
 
     public Game(enumNrJuc numarJucatori) {
         this.numarJucatori = numarJucatori;
         this.distribuiri = setDistribuiri(numarJucatori);
-        genereazaJucatori();
-        new Distribuire(0, distribuiri[0]);
 //        genereazaCarti();
 //        populareHashmap();
     }
@@ -42,7 +41,7 @@ public class Game {
 //    }
     //Am anulat aceasta metoda pentru ca am creat clasa Distribuire care se va ocupa de acest lucru.
 
-    private void genereazaJucatori(){
+    void genereazaJucatori(){
         Scanner in = new Scanner(System.in);
         for(int i=0; i<numarJucatori.numar; i++){
             System.out.println("Intrudu un nume pt jucatorul nr " + i);
@@ -51,7 +50,25 @@ public class Game {
 //            System.out.println("A fost adaugat jucatorul " + nume);
         }
         colectieJucatori.get(0).setFirst(true);
+        colectieJucatori.get(numarJucatori.numar-1).setLast(true);
         System.out.println("Jucatorul " + colectieJucatori.get(0).getNume() + " este primul");
+        System.out.println("Jucatorul " + colectieJucatori.get(numarJucatori.numar-1).getNume() + " este ultimul");
+
+    }
+
+    //TODO: returneaza colectia de carti in loc sa modifici field-ul de clasa si dupa asigneaza-o la field, daca e nevoie
+    //asa poti apela metoda de mai multe ori, daca e nevoie
+    protected List<Carte> genereazaCarti(int nrJucatori){
+        List<Carte> Carti = new ArrayList<>();
+        if(nrJucatori==3){
+            //daca sunt 3 jucatori, genereaza cartile de la 9 la AS
+            for(int i=6; i<12; i++){
+                for(int j=0; j<4; j++){
+                    Carti.add(new Carte(i, j));
+                }
+            }
+        }
+        return Carti;
     }
 
     //acestea sunt mainile, reprezentand cartile impartite, in functie de nr de jucatori.
@@ -76,11 +93,11 @@ public class Game {
     }
 
 
-    public static int getManaCurenta() {
+    public int getManaCurenta() {
         return manaCurenta;
     }
 
-    public static List<Jucator> getColectieJucatori() {
+    public List<Jucator> getColectieJucatori() {
         return colectieJucatori;
     }
 
@@ -94,5 +111,13 @@ public class Game {
 
     public int[] getDistribuiri() {
         return distribuiri;
+    }
+
+    public void setColectieCarti(List<Carte> colectieCarti) {
+        this.colectieCarti = colectieCarti;
+    }
+
+    public List<Carte> getColectieCarti() {
+        return colectieCarti;
     }
 }

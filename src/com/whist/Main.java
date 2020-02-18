@@ -5,11 +5,14 @@ public class Main {
     //TODO: preferabil, clasa care contine metoda main ar trebui sa fie separata si sa nu creezi obiecte din ea.
     public static void main(String[] args) {
         Game joc = new Game(Game.enumNrJuc.TREI);
-
-        System.out.println("mana curenta este: " +Game.getManaCurenta());
-
-        System.out.println(joc.getColectieDistribuiri().toString());
-
+        joc.genereazaJucatori();
+        joc.setColectieCarti(joc.genereazaCarti(joc.getColectieJucatori().size()));
+        Distribuire distUnu = new Distribuire(0, joc.getDistribuiri()[0]);
+        for (Jucator jucator : joc.getColectieJucatori()) {
+                distUnu.distribuieCarti(joc.getColectieCarti(), jucator);
+                distUnu.voteaza(jucator);
+        }
+        distUnu.genereazaMaini();
     }
 
 }
