@@ -9,11 +9,13 @@ public class Jucator {
     private final String nume;
     private int puncteCastigate;
     private boolean first = false;
+    //TODO: foloseste mereu private sau protected
     ArrayList<Carti> cartiCurente = new ArrayList<>();
 
     public Jucator(int id, String nume) {
         this.id = id;
         this.nume = nume;
+        //TODO: e deja initializat cu 0 (default value)
         puncteCastigate = 0;
     }
     

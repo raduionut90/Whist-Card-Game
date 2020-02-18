@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
-
 public class Whist {
     public enum nrJucatori{TREI, PATRU, CINCI, SASE};
 
@@ -15,9 +14,12 @@ public class Whist {
     private final int nrDistribuiri;
     private int manaCurenta=1;
     private Carti atuu;
+    //TODO: lipseste private
+    //TODO: initializeaza mereu cu interfata: ex: List<Jucator> = new ArrayList<>(); Map<Integer, Integer> hm = new HashMap<>();
     ArrayList<Jucator> colectieJucatori = new ArrayList<>();
     ArrayList<Carti> colCarti = new ArrayList<>();
     ArrayList<Maini> colMaini = new ArrayList<>();
+    //TODO: da un nume mai sugestiv pentru asta
     HashMap<Integer, Integer> hm = new HashMap<>();
 
     public Whist(nrJucatori x) {
@@ -32,16 +34,24 @@ public class Whist {
     private void genereazaMainile(){
         
     }
-    
+
+    //TODO: nume mai sugestiv si aici
     private void populareHashmap(){
         for (int i = 1; i <= nrDistribuiri; i++) {
             hm.put(i, maini[i-1]);
         }
     }
+
+    //TODO: e preferabil sa pasezi variabilele pe care le modifici (colCarti, colectieJucatori...) ca argumente
+    //decat sa modifici field-urile de clasa. Asa e si mai clar ce vrea sa faca metoda.
+    //TODO: indentarea...
     private void distribuieCarti(){
             ArrayList<Carti> cartiTemp = new ArrayList<>(colCarti);
+                //TODO: nu folosi x,y,a,b,c... pentru variabile. Aici, foloseste Jucator jucator : colectieJucatori
                 for(Jucator x:colectieJucatori){
+                    //TODO: din cauza ca ai folosit hm, nu e clar peste ce iterezi aici
                     for(int j=0; j<hm.get(manaCurenta); j++){
+                        //TODO: mai bine faci un setter care suprascrie array-ul decat sa faci clear si add
                         x.cartiCurente.clear();
                         x.cartiCurente.add(cartiTemp.get(manaCurenta));
                         System.out.println("Jucatorul " + x.getNume() + " a primit cartea " + cartiTemp.get(manaCurenta));
@@ -50,6 +60,8 @@ public class Whist {
                 }
                 atuu = cartiTemp.get(manaCurenta);
                 System.out.println(atuu+ " este ATUU");
+                //TODO: e riscant sa faci get, remove... cu un field care se tot modifica.
+                //incrementeaza asta in afara metodei, care ar trebui doar sa distribuie carti
                 manaCurenta++;
     }
     
@@ -64,7 +76,9 @@ public class Whist {
         colectieJucatori.get(0).setFirst(true);
         System.out.println("Jucatorul " + colectieJucatori.get(0).getNume() + " este primul");
     }
-    
+
+    //TODO: returneaza colectia de carti in loc sa modifici field-ul de clasa si dupa asigneaza-o la field, daca e nevoie
+    //asa poti apela metoda de mai multe ori, daca e nevoie
     private void genereazaCarti(){
         if(jucatori==3){
             //daca sunt 3 jucatori, genereaza cartile de la 9 la AS
@@ -110,9 +124,9 @@ public class Whist {
         this.atuu = atuu;
     }
 
-    
 
 
+    //TODO: preferabil, clasa care contine metoda main ar trebui sa fie separata si sa nu creezi obiecte din ea.
     public static void main(String[] args) {
         Whist joc = new Whist(nrJucatori.TREI);
         System.out.println(joc.jucatori);
