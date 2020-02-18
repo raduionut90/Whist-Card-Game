@@ -1,0 +1,11 @@
+/* Clasa Distribuire
+
+3 jucatori = 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 7, 6, 5, 4, 3, 2, 1, 1, 1.						Total 21
+4 jucatori = 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1.					Total 24
+5 jucatori = 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1			Total 27
+6 jucatori = 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1, 1		Total 30
+
+//in functie de ea, creez nr de maini. De exemplu pt 3 jucatori, distribuirea nr. 5 va avea 4 maini.
+Fiecare mana va memora cartile alese de un jucator, si va avea o metoda care sa stabileasca cine a castigat mana respectiva.
+
+*/
