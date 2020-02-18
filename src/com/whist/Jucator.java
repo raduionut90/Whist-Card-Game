@@ -2,6 +2,7 @@
 package com.whist;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Jucator {
@@ -10,22 +11,22 @@ public class Jucator {
     private int puncteCastigate;
     private boolean first = false;
     //TODO: foloseste mereu private sau protected
-    ArrayList<Carti> cartiCurente = new ArrayList<>();
+    protected List<Carte> cartiCurente = new ArrayList<>();
 
     public Jucator(int id, String nume) {
         this.id = id;
         this.nume = nume;
         //TODO: e deja initializat cu 0 (default value)
-        puncteCastigate = 0;
+        //puncteCastigate = 0;
     }
     
-    public Carti alegeCarte(int x){
+    public Carte alegeCarte(int x){
         return cartiCurente.get(x);
     }
-    
-    public void preiaCarti(Carti x){
+
+    public void preiaCarti(Carte x){
         cartiCurente.add(x);
-    } 
+    }
 
     @Override
     public String toString() {
@@ -41,11 +42,11 @@ public class Jucator {
         this.puncteCastigate = puncteCastigate;
     }
 
-    public ArrayList<Carti> getCartiCurente() {
+    public List<Carte> getCartiCurente() {
         return cartiCurente;
     }
 
-    public void setCartiCurente(ArrayList<Carti> cartiCurente) {
+    public void setCartiCurente(List<Carte> cartiCurente) {
         this.cartiCurente = cartiCurente;
     }
 
