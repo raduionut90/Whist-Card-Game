@@ -68,7 +68,7 @@ public class Distribuire {
     }
 
     protected void genereazaMaini() {
-        for (int i = 0; i <= nrMaini; i++) {
+        for (int i = 0; i < nrMaini; i++) {
             colectieMaini.add(new Hand());
         }
     }
