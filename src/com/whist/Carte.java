@@ -1,6 +1,8 @@
 
 package com.whist;
 
+import java.util.Objects;
+
 public class Carte {
     private final int valoare;
     private final int culoare;
@@ -27,6 +29,18 @@ public class Carte {
         //as de rosie
         return valori[valoare] + " de " + culori[culoare];
     }
-    
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Carte carte = (Carte) o;
+        return valoare == carte.valoare &&
+                culoare == carte.culoare;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(valoare, culoare);
+    }
 }

@@ -1,8 +1,6 @@
 package com.whist;
 
 public class Main {
-
-    //TODO: preferabil, clasa care contine metoda main ar trebui sa fie separata si sa nu creezi obiecte din ea.
     public static void main(String[] args) {
         Game joc = new Game(Game.enumNrJuc.TREI);
         joc.genereazaJucatori();
@@ -17,6 +15,33 @@ public class Main {
         }
         distUnu.calcTotalVotate();
         distUnu.genereazaMaini();
+        for (Hand mana : distUnu.getColectieMaini()) {
+            for (Jucator jucator : joc.getColectieJucatori()) {
+                mana.solicitaCarte(jucator);
+            }
+            mana.cineCastiga();
+        }
+
+
+        Distribuire distDoi = new Distribuire(8, joc.getDistribuiri()[8], joc.getColectieCarti());
+        System.out.println("\n ");
+        System.out.println("Urmeaza joc de " + distDoi.nrMaini);
+        for (Jucator jucator : joc.getColectieJucatori()) {
+            distDoi.distribuieCarti(jucator);
+        }
+        for (Jucator jucator : joc.getColectieJucatori()) {
+            distDoi.voteaza(jucator);
+        }
+        distDoi.calcTotalVotate();
+        distDoi.genereazaMaini();
+            for (Hand mana : distDoi.getColectieMaini()) {
+                for (Jucator jucator : joc.getColectieJucatori()) {
+                    mana.solicitaCarte(jucator);
+                }
+                mana.cineCastiga();
+
+            }
+
     }
 
 }

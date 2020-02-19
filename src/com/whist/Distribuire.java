@@ -17,17 +17,17 @@ public class Distribuire {
 //    acordaPuncte() //calculeaza punctele pt fiecare jucator, in functie de mainiCastigate
 
     private int id;
-    private int nrMaini;
+    protected int nrMaini;
     private List<Hand> colectieMaini = new ArrayList<>();
     private Map<Jucator, Integer> mapVotate = new HashMap<>();
     private int votatePanaAcum;
     private final Carte atuu;
-    private final List<Carte> colectieCarti;
+    private List<Carte> colectieCarti;
 
     public Distribuire(int id, int nrMaini, List<Carte> colectieCarti) {
         this.id = id;
         this.nrMaini = nrMaini;
-        this.colectieCarti = colectieCarti;
+        this.colectieCarti = new ArrayList<>(colectieCarti);
         this.atuu = setAtuu();
     }
 
@@ -42,12 +42,14 @@ public class Distribuire {
 
     public void calcTotalVotate(){
         System.out.println("=================================");
-        System.out.println("Total votate: " + votatePanaAcum);
+        System.out.println("Total votate: " + votatePanaAcum + "/" + nrMaini);
+        System.out.println("\n");
     }
 
     private Carte setAtuu(){
         if (nrMaini!=8) {
             System.out.println("nr maini egal cu = " + nrMaini);
+            Collections.shuffle(colectieCarti);
             Carte atu = colectieCarti.get(0);
             System.out.println(atu + " este ATU");
             colectieCarti.remove(0);
@@ -59,17 +61,22 @@ public class Distribuire {
 
     protected void distribuieCarti(Jucator jucator) {
         Collections.shuffle(colectieCarti);
+        jucator.cartiCurente.clear();
         for (int i = 0; i < nrMaini; i++) {
-            jucator.cartiCurente.clear();
-            jucator.cartiCurente.add(colectieCarti.get(i));
-            System.out.println("Jucatorul " + jucator.getNume() + " a primit cartea " + jucator.getCartiCurente().toString());
-            colectieCarti.remove(i);
+//            System.out.println(i + " valoare lui i. " + colectieCarti.size() + " lungimea colectiei");
+            jucator.cartiCurente.add(colectieCarti.get(0));
+            colectieCarti.remove(0);
         }
+        System.out.println("Jucatorul " + jucator.getNume() + " are cartile " + jucator.getCartiCurente().toString());
     }
 
     protected void genereazaMaini() {
         for (int i = 0; i < nrMaini; i++) {
-            colectieMaini.add(new Hand());
+            colectieMaini.add(new Hand(atuu));
         }
+    }
+
+    public List<Hand> getColectieMaini() {
+        return colectieMaini;
     }
 }

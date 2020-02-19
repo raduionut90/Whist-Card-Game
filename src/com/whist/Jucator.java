@@ -20,6 +20,30 @@ public class Jucator {
         this.nume = nume;
     }
 
+    protected Carte alegeCarte(){
+        System.out.println(nume + ", carti tale sunt:");
+        for (int i = 0; i < cartiCurente.size(); i++) {
+            System.out.println(i + ". " + cartiCurente.get(i));
+        }
+        System.out.println("Introdu nr. cartii pe care vrei sa o dai jos: ");
+        Scanner sc = new Scanner(System.in);
+        int nrAleas;
+        while(true) {
+            try {
+                nrAleas = sc.nextInt();
+                if (nrAleas>cartiCurente.size()-1)
+                    throw new IndexOutOfBoundsException("Nu exista cartea cu numarul ales de tine");
+                break;
+            } catch (IndexOutOfBoundsException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+        Carte carteAleasa = cartiCurente.get(nrAleas);
+        cartiCurente.remove(nrAleas);
+        System.out.println("Cartea data jos este " + carteAleasa + "\n \n");
+        return carteAleasa;
+    }
+
     public int cateVotezi(int nrMaini, int votatePanaAcum){
         Scanner scan = new Scanner(System.in);
         int rezultat;
@@ -44,7 +68,8 @@ public class Jucator {
 
     @Override
     public String toString() {
-        return "Jucatorul " + nume + " puncte: " + puncteCastigate + " are cartile: " + cartiCurente.toString();
+        return nume;
+  //      return "Jucatorul " + nume + " puncte: " + puncteCastigate + " are cartile: " + cartiCurente.toString();
     }
 
     public List<Carte> getCartiCurente() {
@@ -69,5 +94,9 @@ public class Jucator {
 
     public void setLast(boolean last) {
         this.last = last;
+    }
+
+    public int getId() {
+        return id;
     }
 }
