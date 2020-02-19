@@ -7,10 +7,12 @@ public class Main {
         Game joc = new Game(Game.enumNrJuc.TREI);
         joc.genereazaJucatori();
         joc.setColectieCarti(joc.genereazaCarti(joc.getColectieJucatori().size()));
-        Distribuire distUnu = new Distribuire(0, joc.getDistribuiri()[0]);
+//        System.out.println(joc.getColectieCarti());
+        Distribuire distUnu = new Distribuire(0, joc.getDistribuiri()[0], joc.getColectieCarti());
         for (Jucator jucator : joc.getColectieJucatori()) {
-                distUnu.distribuieCarti(joc.getColectieCarti(), jucator);
+                distUnu.distribuieCarti(jucator);
         }
+        distUnu.calcTotalVotate();
         for (Jucator jucator : joc.getColectieJucatori()) {
             distUnu.voteaza(jucator);
         }

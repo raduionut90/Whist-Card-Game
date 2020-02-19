@@ -12,59 +12,40 @@ public class Jucator {
     private int puncteCastigate;
     private boolean first = false;
     private boolean last = false;
-    //TODO: foloseste mereu private sau protected
     protected List<Carte> cartiCurente = new ArrayList<>();
 
     public Jucator(int id, String nume) {
         this.id = id;
         this.nume = nume;
-        //TODO: e deja initializat cu 0 (default value)
-        //puncteCastigate = 0;
     }
 
     public int cateVotezi(int nrMaini, int votatePanaAcum){
-        Scanner sc = new Scanner(System.in);
-        int rezultat = sc.nextInt();
-        if (rezultat>nrMaini) {
-            if (isLast() && rezultat == nrMaini - votatePanaAcum){
-                System.out.println("Nu poti vota " + rezultat + ". Pana acum s-au votat " + votatePanaAcum);
-                return -1;
+        boolean loop = true;
+        Scanner scan = new Scanner(System.in);
+        int rezultat=0;
+        while(loop) {
+            try {
+                rezultat = scan.nextInt();
+                if (rezultat > nrMaini)
+                    throw new IllegalArgumentException("Nu poti vota mai mult decat nr. de maini! reincearca");
+                if (isLast() && rezultat == nrMaini - votatePanaAcum)
+                    throw new IllegalArgumentException("Esti ultimul si nu poti vota exact nr. de maini! reincearca");
+                loop = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e);
+                loop = true;
             }
-            return -1;
-        } else {
-            return rezultat;
         }
-
-    }
-    
-//    public Carte alegeCarte(int x){
-//        return cartiCurente.get(x);
-//    }
-
-    public void preiaCarti(Carte x){
-        cartiCurente.add(x);
+        return rezultat;
     }
 
     @Override
     public String toString() {
         return "Jucatorul " + nume + " puncte: " + puncteCastigate + " are cartile: " + cartiCurente.toString();
     }
-    
-
-    public int getPuncteCastigate() {
-        return puncteCastigate;
-    }
-
-    public void setPuncteCastigate(int puncteCastigate) {
-        this.puncteCastigate = puncteCastigate;
-    }
 
     public List<Carte> getCartiCurente() {
         return cartiCurente;
-    }
-
-    public void setCartiCurente(List<Carte> cartiCurente) {
-        this.cartiCurente = cartiCurente;
     }
 
     public String getNume() {

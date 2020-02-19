@@ -21,36 +21,42 @@ public class Distribuire {
     private List<Hand> colectieMaini = new ArrayList<>();
     private Map<Jucator, Integer> mapVotate = new HashMap<>();
     private int votatePanaAcum;
-    private Carte atuu;
+    private final Carte atuu;
+    private final List<Carte> colectieCarti;
 
-    public Distribuire(int id, int nrMaini) {
+    public Distribuire(int id, int nrMaini, List<Carte> colectieCarti) {
         this.id = id;
         this.nrMaini = nrMaini;
+        this.colectieCarti = colectieCarti;
+        this.atuu = setAtuu();
     }
 
     public void voteaza(Jucator jucator) {
         System.out.println(jucator.getNume() + " cate maini crezi ca faci ? Pana acum s-au votat " + votatePanaAcum);
         int votateDeJucator = jucator.cateVotezi(nrMaini, votatePanaAcum);
 
-        if(votateDeJucator == -1){
+        mapVotate.put(jucator, votateDeJucator);
+        System.out.println("Ai votat " + votateDeJucator);
+        votatePanaAcum += mapVotate.get(jucator);
+    }
 
-            System.out.println("Reincearca! Pana acum s-au votat " + votatePanaAcum);
-            jucator.cateVotezi(nrMaini, votatePanaAcum);
+    public void calcTotalVotate(){
+        System.out.println("Total votate: " + votatePanaAcum);
+    }
+
+    private Carte setAtuu(){
+        if (nrMaini!=8) {
+            System.out.println("nr maini egal cu = " + nrMaini);
+            Carte atu = colectieCarti.get(0);
+            System.out.println(atu + " este ATU");
+            colectieCarti.remove(0);
+            return atu;
         } else {
-            mapVotate.put(jucator, votateDeJucator);
-            System.out.println("Ai votat " + votateDeJucator);
-            votatePanaAcum += mapVotate.get(jucator);
+            return null;
         }
     }
 
-    //TODO: e preferabil sa pasezi variabilele pe care le modifici (colCarti, colectieJucatori...) ca argumente
-//decat sa modifici field-urile de clasa. Asa e si mai clar ce vrea sa faca metoda.
-//TODO: indentarea...
-
-    protected void distribuieCarti(List<Carte> colectieCarti, Jucator jucator) {
-        //TODO: nu folosi x,y,a,b,c... pentru variabile. Aici, foloseste Jucator jucator : colectieJucatori
-        //TODO: din cauza ca ai folosit hm, nu e clar peste ce iterezi aici
-        //TODO: mai bine faci un setter care suprascrie array-ul decat sa faci clear si add
+    protected void distribuieCarti(Jucator jucator) {
         Collections.shuffle(colectieCarti);
         for (int i = 0; i < nrMaini; i++) {
             jucator.cartiCurente.clear();
@@ -58,14 +64,6 @@ public class Distribuire {
             System.out.println("Jucatorul " + jucator.getNume() + " a primit cartea " + jucator.getCartiCurente().toString());
             colectieCarti.remove(i);
         }
-
-        if (nrMaini!=8) {
-            atuu = colectieCarti.get(nrMaini);
-            System.out.println(atuu + " este ATU");
-        }
-        //TODO: e riscant sa faci get, remove... cu un field care se tot modifica.
-        //incrementeaza asta in afara metodei, care ar trebui doar sa distribuie carti
-        //manaCurenta++;
     }
 
     protected void genereazaMaini() {
