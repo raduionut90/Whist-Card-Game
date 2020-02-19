@@ -8,7 +8,7 @@ public class Main {
 //        System.out.println(joc.getColectieCarti());
         Distribuire distUnu = new Distribuire(0, joc.getDistribuiri()[0], joc.getColectieCarti());
         for (Jucator jucator : joc.getColectieJucatori()) {
-                distUnu.distribuieCarti(jucator);
+            distUnu.distribuieCarti(jucator);
         }
         for (Jucator jucator : joc.getColectieJucatori()) {
             distUnu.voteaza(jucator);
@@ -34,13 +34,14 @@ public class Main {
         }
         distDoi.calcTotalVotate();
         distDoi.genereazaMaini();
-            for (Hand mana : distDoi.getColectieMaini()) {
-                for (Jucator jucator : joc.getColectieJucatori()) {
-                    mana.solicitaCarte(jucator);
-                }
-                mana.cineCastiga();
-
+        for (Hand mana : distDoi.getColectieMaini()) {
+            for (Jucator jucator : joc.getColectieJucatori()) {
+                mana.solicitaCarte(jucator);
             }
+            mana.cineCastiga();
+        }
+
+
 
     }
 

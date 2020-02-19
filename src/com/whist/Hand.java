@@ -36,12 +36,13 @@ public class Hand {
                     castigator = jucator;
                 }
             }
-            if (castigator != null) {
-                System.out.println("Jucatorul " + castigator.getNume() + " a castigat aceasta mana");
-            }
+
             //verific daca jucatorii au dat culoare jos
             //cea mai mare culoare
 
+        }
+        if (castigator != null) {
+            System.out.println("Jucatorul " + castigator.getNume() + " a castigat aceasta mana");
         }
     }
 

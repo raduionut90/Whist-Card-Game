@@ -27,19 +27,19 @@ public class Jucator {
         }
         System.out.println("Introdu nr. cartii pe care vrei sa o dai jos: ");
         Scanner sc = new Scanner(System.in);
-        int nrAleas;
+        int nrAles;
         while(true) {
             try {
-                nrAleas = sc.nextInt();
-                if (nrAleas>cartiCurente.size()-1)
+                nrAles = sc.nextInt();
+                if (nrAles>cartiCurente.size()-1)
                     throw new IndexOutOfBoundsException("Nu exista cartea cu numarul ales de tine");
                 break;
             } catch (IndexOutOfBoundsException e) {
                 System.err.println(e.getMessage());
             }
         }
-        Carte carteAleasa = cartiCurente.get(nrAleas);
-        cartiCurente.remove(nrAleas);
+        Carte carteAleasa = cartiCurente.get(nrAles);
+        cartiCurente.remove(nrAles);
         System.out.println("Cartea data jos este " + carteAleasa + "\n \n");
         return carteAleasa;
     }

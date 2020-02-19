@@ -61,7 +61,7 @@ public class Distribuire {
 
     protected void distribuieCarti(Jucator jucator) {
         Collections.shuffle(colectieCarti);
-        jucator.cartiCurente.clear();
+//        jucator.cartiCurente.clear();
         for (int i = 0; i < nrMaini; i++) {
 //            System.out.println(i + " valoare lui i. " + colectieCarti.size() + " lungimea colectiei");
             jucator.cartiCurente.add(colectieCarti.get(0));
