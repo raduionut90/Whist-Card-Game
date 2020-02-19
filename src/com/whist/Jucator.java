@@ -2,6 +2,7 @@
 package com.whist;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,8 +33,11 @@ public class Jucator {
                     throw new IllegalArgumentException("Esti ultimul si nu poti vota exact nr. de maini! reincearca");
                 loop = false;
             } catch (IllegalArgumentException e) {
-                System.out.println(e);
-                loop = true;
+                System.out.println(e.toString());
+            }
+            catch (InputMismatchException e){
+                System.out.println(e.toString());
+                scan.next();
             }
         }
         return rezultat;

@@ -12,10 +12,10 @@ public class Main {
         for (Jucator jucator : joc.getColectieJucatori()) {
                 distUnu.distribuieCarti(jucator);
         }
-        distUnu.calcTotalVotate();
         for (Jucator jucator : joc.getColectieJucatori()) {
             distUnu.voteaza(jucator);
         }
+        distUnu.calcTotalVotate();
         distUnu.genereazaMaini();
     }
 

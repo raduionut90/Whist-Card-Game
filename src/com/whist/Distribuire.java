@@ -41,6 +41,7 @@ public class Distribuire {
     }
 
     public void calcTotalVotate(){
+        System.out.println("=================================");
         System.out.println("Total votate: " + votatePanaAcum);
     }
 
