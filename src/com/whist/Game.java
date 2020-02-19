@@ -9,7 +9,7 @@ public class Game {
         PATRU(4),
         CINCI(5),
         SASE(6);
-        private final int numar;
+        protected final int numar;
 
         enumNrJuc(int nr) {
             this.numar = nr;
@@ -27,7 +27,7 @@ public class Game {
 //        genereazaCarti();
     }
 
-    void genereazaJucatori(){
+    protected void genereazaJucatori(){
         Scanner in = new Scanner(System.in);
         for(int i=0; i<numarJucatori.numar; i++){
             System.out.println("Intrudu un nume pt jucatorul nr " + i);
@@ -89,5 +89,9 @@ public class Game {
 
     public List<Carte> getColectieCarti() {
         return colectieCarti;
+    }
+
+    public enumNrJuc getNumarJucatori() {
+        return numarJucatori;
     }
 }

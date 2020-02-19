@@ -33,8 +33,8 @@ public class Distribuire {
 
     public void voteaza(Jucator jucator) {
         System.out.println(jucator.getNume() + " cate maini crezi ca faci ? Pana acum s-au votat " + votatePanaAcum);
+        if(jucator.isLast() && (nrMaini-votatePanaAcum)>=0) System.out.println("Esti ultimul si nu ai voie sa votezi " + (nrMaini-votatePanaAcum));
         int votateDeJucator = jucator.cateVotezi(nrMaini, votatePanaAcum);
-
         mapVotate.put(jucator, votateDeJucator);
         System.out.println("Ai votat " + votateDeJucator);
         votatePanaAcum += mapVotate.get(jucator);

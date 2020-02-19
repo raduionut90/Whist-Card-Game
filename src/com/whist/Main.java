@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Game joc = new Game(Game.enumNrJuc.TREI);
         joc.genereazaJucatori();
-        joc.setColectieCarti(joc.genereazaCarti(joc.getColectieJucatori().size()));
+        joc.setColectieCarti(joc.genereazaCarti(joc.getNumarJucatori().numar));
 //        System.out.println(joc.getColectieCarti());
         Distribuire distUnu = new Distribuire(0, joc.getDistribuiri()[0], joc.getColectieCarti());
         for (Jucator jucator : joc.getColectieJucatori()) {

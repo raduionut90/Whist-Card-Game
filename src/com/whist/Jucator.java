@@ -21,22 +21,21 @@ public class Jucator {
     }
 
     public int cateVotezi(int nrMaini, int votatePanaAcum){
-        boolean loop = true;
         Scanner scan = new Scanner(System.in);
-        int rezultat=0;
-        while(loop) {
+        int rezultat;
+        while(true) {
             try {
                 rezultat = scan.nextInt();
-                if (rezultat > nrMaini)
-                    throw new IllegalArgumentException("Nu poti vota mai mult decat nr. de maini! reincearca");
+                if (rezultat > nrMaini || rezultat<0)
+                    throw new IllegalArgumentException("Nu poti vota mai mult decat nr. de maini sau mai putine de 0! reincearca");
                 if (isLast() && rezultat == nrMaini - votatePanaAcum)
-                    throw new IllegalArgumentException("Esti ultimul si nu poti vota exact nr. de maini! reincearca");
-                loop = false;
+                    throw new IllegalArgumentException("Esti ultimul si nu ai voie sa votezi " + (nrMaini-votatePanaAcum));
+                break;
             } catch (IllegalArgumentException e) {
-                System.out.println(e.toString());
-            }
-            catch (InputMismatchException e){
-                System.out.println(e.toString());
+                System.err.println(e.getMessage());
+            } catch (InputMismatchException e){
+                System.err.println(e.toString());
+                System.out.println("Trebuie sa introduci o cifra");
                 scan.next();
             }
         }
