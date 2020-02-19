@@ -1,10 +1,7 @@
 
 package com.whist;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Jucator {
@@ -20,8 +17,11 @@ public class Jucator {
         this.nume = nume;
     }
 
-    protected Carte alegeCarte(){
-        System.out.println(nume + ", carti tale sunt:");
+    protected Carte alegeCarte(Carte atu, Carte primaCarte){
+        System.out.println("     ATU    este: " + atu);
+        System.out.println("Prima carte este: " + primaCarte);
+        System.out.println("+++++ " + nume + " +++++ carti tale sunt: \n");
+        Collections.sort(cartiCurente, (c1, c2) -> c1.getCuloare()-c2.getCuloare());
         for (int i = 0; i < cartiCurente.size(); i++) {
             System.out.println(i + ". " + cartiCurente.get(i));
         }

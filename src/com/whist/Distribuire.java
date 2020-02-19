@@ -48,10 +48,8 @@ public class Distribuire {
 
     private Carte setAtuu(){
         if (nrMaini!=8) {
-            System.out.println("nr maini egal cu = " + nrMaini);
             Collections.shuffle(colectieCarti);
             Carte atu = colectieCarti.get(0);
-            System.out.println(atu + " este ATU");
             colectieCarti.remove(0);
             return atu;
         } else {
