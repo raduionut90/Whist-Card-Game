@@ -29,17 +29,18 @@ public class Distribuire {
     }
 
     public void voteaza(Jucator jucator) {
-        cateVotate();
         System.out.println(jucator.getNume() + " cate maini crezi ca faci ? Pana acum s-au votat " + votatePanaAcum);
-        mapVotate.put(jucator, jucator.cateVotezi(nrMaini, votatePanaAcum));
-        cateVotate();
-    }
+        int votateDeJucator = jucator.cateVotezi(nrMaini, votatePanaAcum);
 
-    public int cateVotate(){
-        for (int i = 0; i < mapVotate.size(); i++) {
-             votatePanaAcum =+ mapVotate.get(i);
+        if(votateDeJucator == -1){
+
+            System.out.println("Reincearca! Pana acum s-au votat " + votatePanaAcum);
+            jucator.cateVotezi(nrMaini, votatePanaAcum);
+        } else {
+            mapVotate.put(jucator, votateDeJucator);
+            System.out.println("Ai votat " + votateDeJucator);
+            votatePanaAcum += mapVotate.get(jucator);
         }
-        return votatePanaAcum;
     }
 
     //TODO: e preferabil sa pasezi variabilele pe care le modifici (colCarti, colectieJucatori...) ca argumente

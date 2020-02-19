@@ -25,11 +25,15 @@ public class Jucator {
     public int cateVotezi(int nrMaini, int votatePanaAcum){
         Scanner sc = new Scanner(System.in);
         int rezultat = sc.nextInt();
-        if (isLast() && rezultat==nrMaini-votatePanaAcum){
-            System.out.println("Nu poti vota " + rezultat + ". Pana acum s-au votat " + votatePanaAcum);
-
+        if (rezultat>nrMaini) {
+            if (isLast() && rezultat == nrMaini - votatePanaAcum){
+                System.out.println("Nu poti vota " + rezultat + ". Pana acum s-au votat " + votatePanaAcum);
+                return -1;
+            }
+            return -1;
+        } else {
+            return rezultat;
         }
-        return rezultat;
 
     }
     

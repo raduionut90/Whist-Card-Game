@@ -10,7 +10,9 @@ public class Main {
         Distribuire distUnu = new Distribuire(0, joc.getDistribuiri()[0]);
         for (Jucator jucator : joc.getColectieJucatori()) {
                 distUnu.distribuieCarti(joc.getColectieCarti(), jucator);
-                distUnu.voteaza(jucator);
+        }
+        for (Jucator jucator : joc.getColectieJucatori()) {
+            distUnu.voteaza(jucator);
         }
         distUnu.genereazaMaini();
     }
