@@ -24,11 +24,9 @@ public class Game {
     public Game(enumNrJuc numarJucatori) {
         this.numarJucatori = numarJucatori;
         this.distribuiri = setDistribuiri(numarJucatori);
-//        genereazaCarti();
     }
 
     public void setFirstAndLast(Jucator castigator){
-//        System.out.println("Pozitia "+castigator.getNume()+" in lista era " + colectieJucatori.indexOf(castigator));
         int index = colectieJucatori.indexOf(castigator);
         List<Jucator> listTemp = new ArrayList<>();
         for (int i = 0; i < colectieJucatori.size(); i++) {
@@ -63,6 +61,27 @@ public class Game {
         if(nrJucatori==3){
             //daca sunt 3 jucatori, genereaza cartile de la 9 la AS
             for(int i=6; i<12; i++){
+                for(int j=0; j<4; j++){
+                    Carti.add(new Carte(i, j));
+                }
+            }
+        }
+        if (nrJucatori==4){
+            for(int i=4; i<12; i++){
+                for(int j=0; j<4; j++){
+                    Carti.add(new Carte(i, j));
+                }
+            }
+        }
+        if (nrJucatori==5){
+            for(int i=2; i<12; i++){
+                for(int j=0; j<4; j++){
+                    Carti.add(new Carte(i, j));
+                }
+            }
+        }
+        if (nrJucatori==6){
+            for(int i=0; i<12; i++){
                 for(int j=0; j<4; j++){
                     Carti.add(new Carte(i, j));
                 }

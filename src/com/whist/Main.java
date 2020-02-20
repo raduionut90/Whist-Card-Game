@@ -1,8 +1,32 @@
 package com.whist;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Game joc = new Game(Game.enumNrJuc.TREI);
+        System.out.println("De cate persoane sa fie jocul ? 3, 4, 5 sau 6 ?");
+        Scanner scanner = new Scanner(System.in);
+        int nrJuc = scanner.nextInt();
+        Game joc = null;
+        switch (nrJuc){
+            case 3:
+                joc = new Game(Game.enumNrJuc.TREI);
+                break;
+            case 4:
+                joc = new Game(Game.enumNrJuc.PATRU);
+                break;
+            case 5:
+                joc = new Game(Game.enumNrJuc.CINCI);
+                break;
+            case 6:
+                joc = new Game(Game.enumNrJuc.SASE);
+                break;
+            default:
+                System.out.println("Nu ai introdus nr corect de persoane");
+                return;
+
+        }
+//        Game joc = new Game(Game.enumNrJuc.TREI);
         joc.genereazaJucatori();
         joc.setColectieCarti(joc.genereazaCarti(joc.getNumarJucatori().numar));
         System.out.println(joc.getColectieCarti());
