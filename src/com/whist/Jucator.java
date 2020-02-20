@@ -19,7 +19,9 @@ public class Jucator {
 
     protected Carte alegeCarte(Carte atu, Carte primaCarte){
         if(atu!=null) System.out.println("     ATU    este: " + atu);
-        if(primaCarte!=null) System.out.println("Prima carte este: " + primaCarte);
+        if(primaCarte!=null) {
+            System.out.println("Prima carte este: " + primaCarte);
+        } else System.out.println("Esti primul !!!");
         System.out.println("+++++ " + nume + " +++++ carti tale sunt: \n");
         Collections.sort(cartiCurente, Comparator.comparingInt(Carte::getCuloare));
         for (int i = 0; i < cartiCurente.size(); i++) {
@@ -76,6 +78,7 @@ public class Jucator {
         for (Carte carte : cartiCurente) {
             if (carte.getCuloare()==atu.getCuloare()){
                 areCuloare = true;
+                break;
             } else if(carte.getCuloare()!=atu.getCuloare()){
                 areCuloare = false;
             }
