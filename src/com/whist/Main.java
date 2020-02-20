@@ -19,9 +19,9 @@ public class Main {
             for (Jucator jucator : joc.getColectieJucatori()) {
                 mana.solicitaCarte(jucator);
             }
-            mana.cineCastiga();
+            Jucator castigator = mana.cineCastiga();
+            joc.setFirstAndLast(castigator);
         }
-
 
         Distribuire distDoi = new Distribuire(8, joc.getDistribuiri()[8], joc.getColectieCarti());
         System.out.println("\n ");
@@ -38,7 +38,8 @@ public class Main {
             for (Jucator jucator : joc.getColectieJucatori()) {
                 mana.solicitaCarte(jucator);
             }
-            mana.cineCastiga();
+            Jucator castigator = mana.cineCastiga();
+            joc.setFirstAndLast(castigator);
         }
 
 

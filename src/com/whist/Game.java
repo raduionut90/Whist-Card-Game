@@ -27,6 +27,22 @@ public class Game {
 //        genereazaCarti();
     }
 
+     public void setFirstAndLast(Jucator castigator){
+        Jucator ultimul = null;
+        for(Jucator jucator : colectieJucatori) {
+            jucator.setFirst(false);
+            jucator.setLast(false);
+            if (castigator.getId() == 0 && jucator.getId() == colectieJucatori.size()-1 || jucator.getId() == castigator.getId() - 1){
+                    jucator.setLast(true);
+                    ultimul = jucator;
+            }
+        }
+         castigator.setFirst(true);
+         System.out.println("Jucatorul " + castigator + " este primul");
+         System.out.println("Jucatorul " + ultimul + " este ultimul");
+     }
+
+
     protected void genereazaJucatori(){
         Scanner in = new Scanner(System.in);
         for(int i=0; i<numarJucatori.numar; i++){
@@ -36,9 +52,6 @@ public class Game {
         }
         colectieJucatori.get(0).setFirst(true);
         colectieJucatori.get(numarJucatori.numar-1).setLast(true);
-        System.out.println("Jucatorul " + colectieJucatori.get(0).getNume() + " este primul");
-        System.out.println("Jucatorul " + colectieJucatori.get(numarJucatori.numar-1).getNume() + " este ultimul");
-
     }
 
     protected List<Carte> genereazaCarti(int nrJucatori){
