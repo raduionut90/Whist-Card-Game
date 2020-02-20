@@ -10,6 +10,9 @@ public class Main {
         for (Jucator jucator : joc.getColectieJucatori()) {
             distUnu.distribuieCarti(jucator);
         }
+        System.out.println("\n ");
+        System.out.println("Joc de " + distUnu.nrMaini);
+        System.out.println("Atu este: " + distUnu.getAtuu());
         for (Jucator jucator : joc.getColectieJucatori()) {
             distUnu.voteaza(jucator);
         }
@@ -25,7 +28,8 @@ public class Main {
 
         Distribuire distDoi = new Distribuire(8, joc.getDistribuiri()[8], joc.getColectieCarti());
         System.out.println("\n ");
-        System.out.println("Urmeaza joc de " + distDoi.nrMaini);
+        System.out.println("Joc de " + distDoi.nrMaini);
+        System.out.println("Atu este: " + distDoi.getAtuu());
         for (Jucator jucator : joc.getColectieJucatori()) {
             distDoi.distribuieCarti(jucator);
         }

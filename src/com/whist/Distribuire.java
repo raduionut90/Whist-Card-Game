@@ -23,6 +23,7 @@ public class Distribuire {
     private int votatePanaAcum;
     private final Carte atuu;
     private List<Carte> colectieCarti;
+    private List<Integer> mainiCastigate = new ArrayList<>();
 
     public Distribuire(int id, int nrMaini, List<Carte> colectieCarti) {
         this.id = id;
@@ -76,5 +77,9 @@ public class Distribuire {
 
     public List<Hand> getColectieMaini() {
         return colectieMaini;
+    }
+
+    public Carte getAtuu() {
+        return atuu;
     }
 }

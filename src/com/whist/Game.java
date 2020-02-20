@@ -50,7 +50,7 @@ public class Game {
     protected void genereazaJucatori(){
         Scanner in = new Scanner(System.in);
         for(int i=0; i<numarJucatori.numar; i++){
-            System.out.println("Intrudu un nume pt jucatorul nr " + i);
+            System.out.println("Introdu un nume pt jucatorul nr " + i);
             String nume = in.next();
             colectieJucatori.add(new Jucator(i, nume));
         }
