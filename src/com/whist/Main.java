@@ -57,7 +57,9 @@ public class Main {
         for (int i = 0; i < joc.getDistribuiri().length; i++) {
             Distribuire distribuire = new Distribuire(i, joc.getDistribuiri()[i], joc.getColectieCarti());
             System.out.println("\n ");
+            System.out.println("Distribuirea nr: " + i);
             System.out.println("Joc de " + distribuire.nrMaini);
+            System.out.println("Ordinea jucatorilor " + joc.getColectieJucatori());
             System.out.println("Atu este: " + distribuire.getAtuu() + "\n");
             for (Jucator jucator : joc.getColectieJucatori()) {
                 distribuire.distribuieCarti(jucator);
@@ -72,10 +74,11 @@ public class Main {
                     mana.solicitaCarte(jucator);
                 }
                 Jucator castigator = mana.cineCastiga();
-                joc.setFirstAndLast(castigator);
+                joc.faCartile(castigator);
                 distribuire.setMainiCastigate(castigator);
             }
             distribuire.calcularePunctaj();
+            joc.faCartile(i);
         }
 
     }

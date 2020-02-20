@@ -2,6 +2,7 @@
 package com.whist;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Game {
     public enum enumNrJuc {
@@ -26,7 +27,7 @@ public class Game {
         this.distribuiri = setDistribuiri(numarJucatori);
     }
 
-    public void setFirstAndLast(Jucator castigator){
+    public void faCartile(Jucator castigator){
         int index = colectieJucatori.indexOf(castigator);
         List<Jucator> listTemp = new ArrayList<>();
         for (int i = 0; i < colectieJucatori.size(); i++) {
@@ -37,13 +38,22 @@ public class Game {
             colectieJucatori.set(i, listTemp.get(i));
             colectieJucatori.get(i).setFirst(false);
             colectieJucatori.get(i).setLast(false);
-//            System.out.println("Pozitia jucatorului " + colectieJucatori.get(i).getNume() + " este " + i);
         }
-//        System.out.println("Pozitia " + castigator.getNume() + "  in lista este " + colectieJucatori.indexOf(castigator));
         colectieJucatori.get(0).setFirst(true);
         colectieJucatori.get(colectieJucatori.size()-1).setLast(true);
     }
 
+    public void faCartile(int index){
+        List<Jucator> temp = colectieJucatori.stream().sorted((j1, j2) -> j1.getId()-j2.getId()).collect(Collectors.toList());
+        for(int i=0; i < temp.size(); i++){
+            index++;
+            colectieJucatori.set(i, temp.get(index%temp.size()));
+            colectieJucatori.get(i).setFirst(false);
+            colectieJucatori.get(i).setLast(false);
+        }
+        colectieJucatori.get(0).setFirst(true);
+        colectieJucatori.get(colectieJucatori.size()-1).setLast(true);
+    }
 
     protected void genereazaJucatori(){
         Scanner in = new Scanner(System.in);
