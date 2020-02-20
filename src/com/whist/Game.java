@@ -28,7 +28,7 @@ public class Game {
     }
 
     public void setFirstAndLast(Jucator castigator){
-        System.out.println("Pozitia "+castigator.getNume()+" in lista era " + colectieJucatori.indexOf(castigator));
+//        System.out.println("Pozitia "+castigator.getNume()+" in lista era " + colectieJucatori.indexOf(castigator));
         int index = colectieJucatori.indexOf(castigator);
         List<Jucator> listTemp = new ArrayList<>();
         for (int i = 0; i < colectieJucatori.size(); i++) {
@@ -39,9 +39,9 @@ public class Game {
             colectieJucatori.set(i, listTemp.get(i));
             colectieJucatori.get(i).setFirst(false);
             colectieJucatori.get(i).setLast(false);
-            System.out.println("Pozitia jucatorului " + colectieJucatori.get(i).getNume() + " este " + i);
+//            System.out.println("Pozitia jucatorului " + colectieJucatori.get(i).getNume() + " este " + i);
         }
-        System.out.println("Pozitia " + castigator.getNume() + "  in lista este " + colectieJucatori.indexOf(castigator));
+//        System.out.println("Pozitia " + castigator.getNume() + "  in lista este " + colectieJucatori.indexOf(castigator));
         colectieJucatori.get(0).setFirst(true);
         colectieJucatori.get(colectieJucatori.size()-1).setLast(true);
     }

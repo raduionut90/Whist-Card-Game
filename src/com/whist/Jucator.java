@@ -33,8 +33,22 @@ public class Jucator {
                 nrAles = sc.nextInt();
                 if (nrAles>cartiCurente.size()-1)
                     throw new IndexOutOfBoundsException("Nu exista cartea cu numarul ales de tine");
+                if(primaCarte!=null && primaCarte.getCuloare()!=atu.getCuloare()){
+                    if (!verificareCuloare(primaCarte)
+                            && verificareAtu(atu)
+                            && cartiCurente.get(nrAles).getCuloare() != atu.getCuloare()){
+                        throw new IllegalArgumentException("Ai atu in mana");
+                    }
+                } else if (primaCarte!=null && primaCarte.getCuloare()==atu.getCuloare()
+                        && verificareCuloare(primaCarte)
+                        && cartiCurente.get(nrAles).getCuloare() != primaCarte.getCuloare()){
+                    throw new IllegalArgumentException("Ai atu in mana !");
+                }
+                if (verificareCuloare(primaCarte) && cartiCurente.get(nrAles).getCuloare() != primaCarte.getCuloare()){
+                    throw new IllegalArgumentException("Ai culoarea in mana si trebuie sa o dai");
+                }
                 break;
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
                 System.err.println(e.getMessage());
             }
         }
@@ -42,6 +56,31 @@ public class Jucator {
         cartiCurente.remove(nrAles);
         System.out.println("Cartea data jos este " + carteAleasa + "\n \n");
         return carteAleasa;
+    }
+
+    public boolean verificareCuloare(Carte prima){
+        boolean areCuloare = false;
+        for (Carte carte : cartiCurente) {
+            if (prima!=null && carte.getCuloare()==prima.getCuloare()){
+                areCuloare = true;
+                break;
+            } else if (prima!=null && carte.getCuloare()!=prima.getCuloare()){
+                areCuloare = false;
+            }
+        }
+        return areCuloare;
+    }
+
+    public boolean verificareAtu(Carte atu){
+        boolean areCuloare = false;
+        for (Carte carte : cartiCurente) {
+            if (carte.getCuloare()==atu.getCuloare()){
+                areCuloare = true;
+            } else if(carte.getCuloare()!=atu.getCuloare()){
+                areCuloare = false;
+            }
+        }
+        return areCuloare;
     }
 
     public int cateVotezi(int nrMaini, int votatePanaAcum){
