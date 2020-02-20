@@ -12,7 +12,7 @@ public class Main {
         }
         System.out.println("\n ");
         System.out.println("Joc de " + distUnu.nrMaini);
-        System.out.println("Atu este: " + distUnu.getAtuu());
+        System.out.println("Atu este: " + distUnu.getAtuu() + "\n");
         for (Jucator jucator : joc.getColectieJucatori()) {
             distUnu.voteaza(jucator);
         }
@@ -24,12 +24,16 @@ public class Main {
             }
             Jucator castigator = mana.cineCastiga();
             joc.setFirstAndLast(castigator);
+            distUnu.setMainiCastigate(castigator);
         }
+        distUnu.calcularePunctaj();
+
+
 
         Distribuire distDoi = new Distribuire(8, joc.getDistribuiri()[8], joc.getColectieCarti());
         System.out.println("\n ");
         System.out.println("Joc de " + distDoi.nrMaini);
-        System.out.println("Atu este: " + distDoi.getAtuu());
+        System.out.println("Atu este: " + distDoi.getAtuu() + "\n");
         for (Jucator jucator : joc.getColectieJucatori()) {
             distDoi.distribuieCarti(jucator);
         }
@@ -44,7 +48,9 @@ public class Main {
             }
             Jucator castigator = mana.cineCastiga();
             joc.setFirstAndLast(castigator);
+            distDoi.setMainiCastigate(castigator);
         }
+        distDoi.calcularePunctaj();
 
 
 

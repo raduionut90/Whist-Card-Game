@@ -4,12 +4,8 @@ package com.whist;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 public class Hand {
-    //cartiDateDeJucatori // memoreaza cartile date de fiecare jucator - probabil map
-    //cineCastiga() // in functie de cartea data de primul jucator si de atu, stabileste cine a castigat mana,
-    // si returneaza numele jucatorului care a castigat mana
     private final Carte atu;
     private Carte primaCarte;   //culoarea
     protected Map<Jucator, Carte> cartiJucatori = new LinkedHashMap<>();
@@ -37,20 +33,15 @@ public class Hand {
         System.out.println("ATU  a fost: " + atu);
         System.out.println(cartiJucatori.toString());
         Carte castigatoareAtu;
-        try{
-            castigatoareAtu = cartiJucatori.values().stream()
+
+        castigatoareAtu = cartiJucatori.values().stream()
                 .filter(carte -> carte.getCuloare() == atu.getCuloare())
-                .findAny().get();
-            try{
-                castigatoareAtu = cartiJucatori.values().stream()
-                        .filter(carte -> carte.getCuloare() == atu.getCuloare())
-                        .max(Comparator.comparingInt(Carte::getValoare)).get();
-            }catch (NoSuchElementException e){
-                castigatoareAtu = null;
-            }
-        }catch (NoSuchElementException e){
-            castigatoareAtu = null;
-        }
+                .findAny().orElse(null);
+
+        castigatoareAtu = cartiJucatori.values().stream()
+                .filter(carte -> carte.getCuloare() == atu.getCuloare())
+                .max(Comparator.comparingInt(Carte::getValoare)).orElse(null);
+
 
 
         Jucator castigator=null;
@@ -64,15 +55,12 @@ public class Hand {
             }
         }else if (castigatoareAtu==null){
             Carte castigatoarePrima;
-            try{
-                castigatoarePrima = cartiJucatori.values().stream()
-                        .filter(carte -> carte.getCuloare() == primaCarte.getCuloare())
-                        .max(Comparator.comparingInt(Carte::getValoare)).get();
-            }catch (NoSuchElementException | NullPointerException e){
-                castigatoarePrima = cartiJucatori.values().stream()
-                        .filter(carte -> carte.getCuloare() == primaCarte.getCuloare())
-                        .findAny().get();
-            }
+            castigatoarePrima = cartiJucatori.values().stream()
+                    .filter(carte -> carte.getCuloare() == primaCarte.getCuloare())
+                    .findAny().orElseGet(null);
+            castigatoarePrima = cartiJucatori.values().stream()
+                    .filter(carte -> carte.getCuloare() == primaCarte.getCuloare())
+                    .max(Comparator.comparingInt(Carte::getValoare)).orElseGet(null);
             for(Jucator jucator: cartiJucatori.keySet()) {
                 if (cartiJucatori.get(jucator) == castigatoarePrima) {
                     castigator = jucator;
@@ -81,7 +69,6 @@ public class Hand {
             }
         }
         System.out.println("=============================");
-//        setFirstandLast(castigator);
         return castigator;
     }
 

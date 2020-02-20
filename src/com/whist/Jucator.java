@@ -10,7 +10,7 @@ public class Jucator {
     private int puncteCastigate;
     private boolean first = false;
     private boolean last = false;
-    protected List<Carte> cartiCurente = new ArrayList<>();
+    private List<Carte> cartiCurente = new ArrayList<>();
 
     public Jucator(int id, String nume) {
         this.id = id;
@@ -18,14 +18,14 @@ public class Jucator {
     }
 
     protected Carte alegeCarte(Carte atu, Carte primaCarte){
-        System.out.println("     ATU    este: " + atu);
-        System.out.println("Prima carte este: " + primaCarte);
+        if(atu!=null) System.out.println("     ATU    este: " + atu);
+        if(primaCarte!=null) System.out.println("Prima carte este: " + primaCarte);
         System.out.println("+++++ " + nume + " +++++ carti tale sunt: \n");
-        Collections.sort(cartiCurente, (c1, c2) -> c1.getCuloare()-c2.getCuloare());
+        Collections.sort(cartiCurente, Comparator.comparingInt(Carte::getCuloare));
         for (int i = 0; i < cartiCurente.size(); i++) {
             System.out.println(i + ". " + cartiCurente.get(i));
         }
-        System.out.println("Introdu nr. cartii pe care vrei sa o dai jos: ");
+        System.out.println("\n Introdu nr. cartii pe care vrei sa o dai jos: ");
         Scanner sc = new Scanner(System.in);
         int nrAles;
         while(true) {
@@ -100,4 +100,11 @@ public class Jucator {
         return id;
     }
 
+    public int getPuncteCastigate() {
+        return puncteCastigate;
+    }
+
+    public void setPuncteCastigate(int puncteCastigate) {
+        this.puncteCastigate = puncteCastigate;
+    }
 }

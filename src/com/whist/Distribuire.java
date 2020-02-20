@@ -23,7 +23,7 @@ public class Distribuire {
     private int votatePanaAcum;
     private final Carte atuu;
     private List<Carte> colectieCarti;
-    private List<Integer> mainiCastigate = new ArrayList<>();
+    private Map<Jucator, Integer> mainiCastigate = new HashMap<>();
 
     public Distribuire(int id, int nrMaini, List<Carte> colectieCarti) {
         this.id = id;
@@ -32,8 +32,40 @@ public class Distribuire {
         this.atuu = setAtuu();
     }
 
+    public void calcularePunctaj(){
+        for (Jucator jucatorVotate : mapVotate.keySet()) {
+//           for (Jucator jucatorCastigate :mainiCastigate.keySet()) {
+                int votate=mapVotate.get(jucatorVotate);
+                int castigate = 0;
+                if(mainiCastigate.containsKey(jucatorVotate)) {
+                    castigate = mainiCastigate.get(jucatorVotate);
+                }
+                int puncte = jucatorVotate.getPuncteCastigate();
+            System.out.println(jucatorVotate + " are puncte: " + puncte + " . a votat " + votate + " a castigat " + castigate);
+                if(votate==castigate){
+                    jucatorVotate.setPuncteCastigate(puncte+5+castigate);
+                    System.out.println("Jucatorul " + jucatorVotate.getNume() + " a castigat " + (5+castigate) + " puncte. \n Acum are " + jucatorVotate.getPuncteCastigate());
+                } else{
+                    jucatorVotate.setPuncteCastigate(puncte-Math.abs(votate-castigate));
+                    System.out.println("Jucatorul " + jucatorVotate.getNume() + " a pierdut " + Math.abs(votate-castigate) + " puncte\n Acum are " + jucatorVotate.getPuncteCastigate());
+                }
+//           }
+        }
+    }
+
+    public void setMainiCastigate(Jucator jucator){
+        if(!mainiCastigate.containsKey(jucator)){
+            mainiCastigate.put(jucator, 1);
+        } else {
+            int value = mainiCastigate.get(jucator)+1;
+            mainiCastigate.replace(jucator, value);
+        }
+        System.out.println(mapVotate.toString() + " votate");
+        System.out.println(mainiCastigate.toString() + " castigate");
+    }
+
     public void voteaza(Jucator jucator) {
-        System.out.println(jucator.getNume() + " cate maini crezi ca faci ? Pana acum s-au votat " + votatePanaAcum);
+        System.out.println(jucator.getNume() + " cate maini crezi ca faci cu cartile acestea: " + jucator.getCartiCurente() + " ? \n Pana acum s-au votat " + votatePanaAcum);
         if(jucator.isLast() && (nrMaini-votatePanaAcum)>=0) System.out.println("Esti ultimul si nu ai voie sa votezi " + (nrMaini-votatePanaAcum));
         int votateDeJucator = jucator.cateVotezi(nrMaini, votatePanaAcum);
         mapVotate.put(jucator, votateDeJucator);
@@ -60,13 +92,11 @@ public class Distribuire {
 
     protected void distribuieCarti(Jucator jucator) {
         Collections.shuffle(colectieCarti);
-//        jucator.cartiCurente.clear();
         for (int i = 0; i < nrMaini; i++) {
-//            System.out.println(i + " valoare lui i. " + colectieCarti.size() + " lungimea colectiei");
-            jucator.cartiCurente.add(colectieCarti.get(0));
+            jucator.getCartiCurente().add(colectieCarti.get(0));
             colectieCarti.remove(0);
         }
-        System.out.println("Jucatorul " + jucator.getNume() + " are cartile " + jucator.getCartiCurente().toString());
+//        System.out.println("Jucatorul " + jucator.getNume() + " are cartile " + jucator.getCartiCurente().toString());
     }
 
     protected void genereazaMaini() {
