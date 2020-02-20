@@ -41,13 +41,13 @@ public class Distribuire {
                     castigate = mainiCastigate.get(jucatorVotate);
                 }
                 int puncte = jucatorVotate.getPuncteCastigate();
-            System.out.println(jucatorVotate + " are puncte: " + puncte + " . a votat " + votate + " a castigat " + castigate);
+            System.out.println(jucatorVotate + " avea puncte: " + puncte + " . a votat " + votate + " a facut " + castigate);
                 if(votate==castigate){
                     jucatorVotate.setPuncteCastigate(puncte+5+castigate);
-                    System.out.println("Jucatorul " + jucatorVotate.getNume() + " a castigat " + (5+castigate) + " puncte. \n Acum are " + jucatorVotate.getPuncteCastigate());
+                    System.out.println("Jucatorul " + jucatorVotate.getNume() + " a castigat in aceasta mana" + (5+castigate) + " puncte. \n Acum are " + jucatorVotate.getPuncteCastigate() + " puncte");
                 } else{
                     jucatorVotate.setPuncteCastigate(puncte-Math.abs(votate-castigate));
-                    System.out.println("Jucatorul " + jucatorVotate.getNume() + " a pierdut " + Math.abs(votate-castigate) + " puncte\n Acum are " + jucatorVotate.getPuncteCastigate());
+                    System.out.println("Jucatorul " + jucatorVotate.getNume() + " a pierdut in aceasta mana" + Math.abs(votate-castigate) + " puncte\n Acum are " + jucatorVotate.getPuncteCastigate() + " puncte");
                 }
 //           }
         }
