@@ -5,8 +5,10 @@ public class Main {
         Game joc = new Game(Game.enumNrJuc.TREI);
         joc.genereazaJucatori();
         joc.setColectieCarti(joc.genereazaCarti(joc.getNumarJucatori().numar));
-//        System.out.println(joc.getColectieCarti());
-//        Distribuire distUnu = new Distribuire(0, joc.getDistribuiri()[0], joc.getColectieCarti());
+        System.out.println(joc.getColectieCarti());
+
+
+//        Distribuire distUnu = new Distribuire(0, joc.getDistribuiri()[9], joc.getColectieCarti());
 //        for (Jucator jucator : joc.getColectieJucatori()) {
 //            distUnu.distribuieCarti(jucator);
 //        }
@@ -51,30 +53,6 @@ public class Main {
             }
             distribuire.calcularePunctaj();
         }
-//
-//        Distribuire distDoi = new Distribuire(8, joc.getDistribuiri()[8], joc.getColectieCarti());
-//        System.out.println("\n ");
-//        System.out.println("Joc de " + distDoi.nrMaini);
-//        System.out.println("Atu este: " + distDoi.getAtuu() + "\n");
-//        for (Jucator jucator : joc.getColectieJucatori()) {
-//            distDoi.distribuieCarti(jucator);
-//        }
-//        for (Jucator jucator : joc.getColectieJucatori()) {
-//            distDoi.voteaza(jucator);
-//        }
-//        distDoi.calcTotalVotate();
-//        distDoi.genereazaMaini();
-//        for (Hand mana : distDoi.getColectieMaini()) {
-//            for (Jucator jucator : joc.getColectieJucatori()) {
-//                mana.solicitaCarte(jucator);
-//            }
-//            Jucator castigator = mana.cineCastiga();
-//            joc.setFirstAndLast(castigator);
-//            distDoi.setMainiCastigate(castigator);
-//        }
-//        distDoi.calcularePunctaj();
-
-
 
     }
 

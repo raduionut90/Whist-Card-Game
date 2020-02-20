@@ -35,13 +35,13 @@ public class Jucator {
                 nrAles = sc.nextInt();
                 if (nrAles>cartiCurente.size()-1)
                     throw new IndexOutOfBoundsException("Nu exista cartea cu numarul ales de tine");
-                if(primaCarte!=null && primaCarte.getCuloare()!=atu.getCuloare()){
+                if(primaCarte!=null && atu!=null && primaCarte.getCuloare()!=atu.getCuloare()){
                     if (!verificareCuloare(primaCarte)
                             && verificareAtu(atu)
                             && cartiCurente.get(nrAles).getCuloare() != atu.getCuloare()){
                         throw new IllegalArgumentException("Ai atu in mana");
                     }
-                } else if (primaCarte!=null && primaCarte.getCuloare()==atu.getCuloare()
+                } else if (primaCarte!=null && atu!=null && primaCarte.getCuloare()==atu.getCuloare()
                         && verificareCuloare(primaCarte)
                         && cartiCurente.get(nrAles).getCuloare() != primaCarte.getCuloare()){
                     throw new IllegalArgumentException("Ai atu in mana !");

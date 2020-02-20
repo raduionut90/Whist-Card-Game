@@ -32,18 +32,16 @@ public class Hand {
         System.out.println("=============================");
         System.out.println("ATU  a fost: " + atu);
         System.out.println(cartiJucatori.toString());
-        Carte castigatoareAtu;
+        Carte castigatoareAtu=null;
+        if(atu!=null) {
+            castigatoareAtu = cartiJucatori.values().stream()
+                    .filter(carte -> carte.getCuloare() == atu.getCuloare())
+                    .findAny().orElse(null);
 
-        castigatoareAtu = cartiJucatori.values().stream()
-                .filter(carte -> carte.getCuloare() == atu.getCuloare())
-                .findAny().orElse(null);
-
-        castigatoareAtu = cartiJucatori.values().stream()
-                .filter(carte -> carte.getCuloare() == atu.getCuloare())
-                .max(Comparator.comparingInt(Carte::getValoare)).orElse(null);
-
-
-
+            castigatoareAtu = cartiJucatori.values().stream()
+                    .filter(carte -> carte.getCuloare() == atu.getCuloare())
+                    .max(Comparator.comparingInt(Carte::getValoare)).orElse(null);
+        }
         Jucator castigator=null;
         if(castigatoareAtu!=null) {
             for(Jucator jucator: cartiJucatori.keySet()) {
