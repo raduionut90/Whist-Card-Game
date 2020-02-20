@@ -99,4 +99,5 @@ public class Jucator {
     public int getId() {
         return id;
     }
+
 }

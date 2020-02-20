@@ -27,20 +27,24 @@ public class Game {
 //        genereazaCarti();
     }
 
-     public void setFirstAndLast(Jucator castigator){
-        Jucator ultimul = null;
-        for(Jucator jucator : colectieJucatori) {
-            jucator.setFirst(false);
-            jucator.setLast(false);
-            if (castigator.getId() == 0 && jucator.getId() == colectieJucatori.size()-1 || jucator.getId() == castigator.getId() - 1){
-                    jucator.setLast(true);
-                    ultimul = jucator;
-            }
+    public void setFirstAndLast(Jucator castigator){
+        System.out.println("Pozitia "+castigator.getNume()+" in lista era " + colectieJucatori.indexOf(castigator));
+        int index = colectieJucatori.indexOf(castigator);
+        List<Jucator> listTemp = new ArrayList<>();
+        for (int i = 0; i < colectieJucatori.size(); i++) {
+            listTemp.add(i, colectieJucatori.get(index%colectieJucatori.size()));
+            index++;
         }
-         castigator.setFirst(true);
-         System.out.println("Jucatorul " + castigator + " este primul");
-         System.out.println("Jucatorul " + ultimul + " este ultimul");
-     }
+        for(int i=0; i < listTemp.size(); i++){
+            colectieJucatori.set(i, listTemp.get(i));
+            colectieJucatori.get(i).setFirst(false);
+            colectieJucatori.get(i).setLast(false);
+            System.out.println("Pozitia jucatorului " + colectieJucatori.get(i).getNume() + " este " + i);
+        }
+        System.out.println("Pozitia " + castigator.getNume() + "  in lista este " + colectieJucatori.indexOf(castigator));
+        colectieJucatori.get(0).setFirst(true);
+        colectieJucatori.get(colectieJucatori.size()-1).setLast(true);
+    }
 
 
     protected void genereazaJucatori(){

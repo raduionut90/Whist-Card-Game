@@ -4,7 +4,7 @@ package com.whist;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 public class Hand {
     //cartiDateDeJucatori // memoreaza cartile date de fiecare jucator - probabil map
@@ -22,10 +22,10 @@ public class Hand {
         Carte carte;
         carte = jucator.alegeCarte(atu, primaCarte);
         cartiJucatori.put(jucator, carte);
-        if(cartiJucatori.size()==1 && jucator.isFirst()){
+        if(primaCarte==null) {
             setPrimaCarte(carte);
-            jucator.setFirst(false);
         }
+
     }
 
     private void setPrimaCarte(Carte prima){
@@ -34,28 +34,49 @@ public class Hand {
 
     public Jucator cineCastiga() {
         System.out.println("=============================");
+        System.out.println("ATU  a fost: " + atu);
         System.out.println(cartiJucatori.toString());
-
-        Optional<Carte> castigatoareAtu = cartiJucatori.values().stream()
+        Carte castigatoareAtu;
+        try{
+            castigatoareAtu = cartiJucatori.values().stream()
                 .filter(carte -> carte.getCuloare() == atu.getCuloare())
-                .max(Comparator.comparingInt(Carte::getValoare));
-        Optional<Carte> castigatoarePrima = cartiJucatori.values().stream()
-                .filter(carte -> carte.getCuloare() == primaCarte.getCuloare())
-                .max(Comparator.comparingInt(Carte::getValoare));
+                .findAny().get();
+            try{
+                castigatoareAtu = cartiJucatori.values().stream()
+                        .filter(carte -> carte.getCuloare() == atu.getCuloare())
+                        .max(Comparator.comparingInt(Carte::getValoare)).get();
+            }catch (NoSuchElementException e){
+                castigatoareAtu = null;
+            }
+        }catch (NoSuchElementException e){
+            castigatoareAtu = null;
+        }
+
 
         Jucator castigator=null;
-        if(castigatoareAtu.isPresent()) {
+        if(castigatoareAtu!=null) {
             for(Jucator jucator: cartiJucatori.keySet()) {
-                if (cartiJucatori.get(jucator) == castigatoareAtu.get()) {
+                if (cartiJucatori.get(jucator) == castigatoareAtu) {
                     castigator = jucator;
-                    System.out.println("Jucatorul " + jucator.getNume() + " este castigatorul acestei maini cu Atu " + castigatoareAtu.get());
+                    System.out.println("Jucatorul " + jucator.getNume() + " cu ID: " +jucator.getId()+ " este castigatorul acestei maini cu Atu " + castigatoareAtu);
+                    break;
                 }
             }
-        }else if (castigatoarePrima.isPresent()){
+        }else if (castigatoareAtu==null){
+            Carte castigatoarePrima;
+            try{
+                castigatoarePrima = cartiJucatori.values().stream()
+                        .filter(carte -> carte.getCuloare() == primaCarte.getCuloare())
+                        .max(Comparator.comparingInt(Carte::getValoare)).get();
+            }catch (NoSuchElementException | NullPointerException e){
+                castigatoarePrima = cartiJucatori.values().stream()
+                        .filter(carte -> carte.getCuloare() == primaCarte.getCuloare())
+                        .findAny().get();
+            }
             for(Jucator jucator: cartiJucatori.keySet()) {
-                if (cartiJucatori.get(jucator) == castigatoarePrima.get()) {
+                if (cartiJucatori.get(jucator) == castigatoarePrima) {
                     castigator = jucator;
-                    System.out.println("Jucatorul " + jucator.getNume() + " este castigatorul acestei maini cu culoare " + castigatoarePrima.get());
+                    System.out.println("Jucatorul " + jucator.getNume()+ " cu ID: " +jucator.getId()+ " este castigatorul acestei maini cu culoare " + castigatoarePrima);
                 }
             }
         }
@@ -64,13 +85,6 @@ public class Hand {
         return castigator;
     }
 
-//    public void setFirstandLast(Jucator castigator){
-//        castigator.setFirst(true);
-////        int idCastigator = castigator.getId();
-////        for(Jucator jucator : cartiJucatori.keySet()){
-////            Jucator ultimul = jucator;
-////        }
-//    }
 //    public void acordaPuncte(){
 //
 //    }
